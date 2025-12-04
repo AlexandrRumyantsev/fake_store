@@ -22,7 +22,8 @@ class _ProductCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  CachedNetworkImage(imageUrl: product.imageUrl),
+                  // Не грузяятся картинки, вместо них квадрат :)
+                  ///CachedNetworkImage(imageUrl: product.imageUrl),
                   ConstrainedBox(
                     constraints: const BoxConstraints(
                       minHeight: 30,
