@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 
 class API {
+  static late final Dio dio;
+  
   static const String baseUrl = 'https://fakestoreapi.com';
 
   /// Базовый набор хэдеров для запросов
@@ -9,14 +11,11 @@ class API {
     'Content-Type': 'application/json',
   };
 
-  /// Настройки клиента Dio
   static final BaseOptions _options = BaseOptions()
     ..baseUrl = baseUrl
     ..headers = baseHeaders;
 
-  /// Dio для выполнения запросов не требующих авторизации
-  static final dioForUnauthorized = Dio(_options);
-
-  /// Клиент для работы с сетью.
-  static final dio = Dio(_options);
+  static void initialize() {
+    dio = Dio(_options);
+  }
 }

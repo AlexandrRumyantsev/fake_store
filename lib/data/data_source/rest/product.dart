@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-import '../models/response/product_response.dart';
+import '../../models/response/product_response.dart';
 
 part 'product.g.dart';
 

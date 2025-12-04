@@ -1,6 +1,3 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-@freezed
 class ProductEntity {
   final int id;
   final String title;

@@ -7,7 +7,11 @@ part of 'auth.dart';
 // **************************************************************************
 
 AuthResponseModel _$AuthResponseModelFromJson(Map<String, dynamic> json) =>
-    AuthResponseModel(token: json['token'] as String);
+    AuthResponseModel(
+      token: json['token'] as String,
+    );
 
 Map<String, dynamic> _$AuthResponseModelToJson(AuthResponseModel instance) =>
-    <String, dynamic>{'token': instance.token};
+    <String, dynamic>{
+      'token': instance.token,
+    };
