@@ -9,5 +9,7 @@ class ProductMapper {
         description: model.description,
         category: model.category,
         imageUrl: model.imageUrl,
+        rate: model.rating.rate,
+        count: model.rating.count,
       );
 }

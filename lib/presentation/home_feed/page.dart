@@ -15,7 +15,6 @@ class HomeFeedPage extends StatefulWidget {
 }
 
 class _HomeFeedPageState extends State<HomeFeedPage> {
-
   @override
   void initState() {
     super.initState();
@@ -37,11 +36,12 @@ class _HomeFeedPageState extends State<HomeFeedPage> {
               child: CircularProgressIndicator(),
             ),
             final HomeFeedLoaded data => ListView.builder(
+              itemCount: data.products.length,
               itemBuilder: (context, index) {
                 return _ProductCard(product: data.products[index]);
               },
             ),
-            HomeFeedError() => const Center(child: Text('Home Feed Page')),
+            final HomeFeedError error => Center(child: Text(error.error)),
           };
         },
       ),

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-import '../../models/response/product_response.dart';
+import '../../models/response/product.dart';
 
 part 'product.g.dart';
 
@@ -9,7 +9,7 @@ part 'product.g.dart';
 @RestApi()
 abstract class ProductsClient {
   factory ProductsClient(Dio dio) = _ProductsClient;
-  
+
   @GET('/products')
-  Future<ProductResponseModel> getProducts();
+  Future<List<ProductModel>> getProducts();
 }

@@ -11,6 +11,7 @@ class ProductModel {
   final String category;
   @JsonKey(name: 'image')
   final String imageUrl;
+  final RatingModel rating;
 
   ProductModel({
     required this.id,
@@ -19,8 +20,22 @@ class ProductModel {
     required this.description,
     required this.category,
     required this.imageUrl,
+    required this.rating,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
+}
+
+@JsonSerializable()
+class RatingModel {
+  final double rate;
+  final int count;
+
+  RatingModel({required this.rate, required this.count});
+
+  factory RatingModel.fromJson(Map<String, dynamic> json) =>
+      _$RatingModelFromJson(json);
+  Map<String, dynamic> toJson() => _$RatingModelToJson(this);
 }
