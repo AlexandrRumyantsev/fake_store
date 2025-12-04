@@ -10,12 +10,14 @@ final regS = sl.registerSingleton;
 final regF = sl.registerFactory;
 
 void configureDependencies() {
+  API.initialize();
   regLS(ProductService.new);
   regLS(ProductMapper.new);
-  regLS(
+  regLS<ProductRepository>(
     () => ProductRepositoryImpl(
       productService: sl<ProductService>(),
       productMapper: sl<ProductMapper>(),
     ),
   );
+  regLS(() => GetProductsUseCase(productRepository: sl<ProductRepository>()));
 }

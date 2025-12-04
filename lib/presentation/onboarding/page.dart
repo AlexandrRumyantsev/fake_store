@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../home_feed/page.dart';
+import '../home_feed/view_model.dart';
 import 'view_model.dart';
 
 part 'progress_bar.dart';
@@ -27,35 +28,42 @@ class _OnboardingPageContent extends StatefulWidget {
 }
 
 class _OnboardingPageContentState extends State<_OnboardingPageContent> {
+  late final OnboardingViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
+    _viewModel = context.read<OnboardingViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final viewModel = context.read<OnboardingViewModel>();
-      viewModel.onComplete = _navigateToHomeFeed;
-      viewModel.startTimer();
+      _viewModel.onComplete = _navigateToHomeFeed;
+      _viewModel.startTimer();
     });
   }
 
   void _navigateToHomeFeed() {
     if (mounted) {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeFeedPage()),
+        MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => HomeFeedViewModel(),
+            child: const HomeFeedPage(),
+          ),
+        ),
       );
     }
   }
 
-  void _handleTap(TapDownDetails details, OnboardingViewModel viewModel) {
+  void _handleTap(TapDownDetails details) {
     final screenWidth = MediaQuery.of(context).size.width;
     final tapPosition = details.globalPosition.dx;
 
     if (tapPosition < screenWidth / 2) {
-      viewModel.previousPage();
+      _viewModel.previousPage();
     } else {
-      if (viewModel.isLastPage) {
+      if (_viewModel.isLastPage) {
         _navigateToHomeFeed();
       } else {
-        viewModel.nextPage();
+        _viewModel.nextPage();
       }
     }
   }
@@ -63,11 +71,12 @@ class _OnboardingPageContentState extends State<_OnboardingPageContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<OnboardingViewModel>(
-        builder: (context, viewModel, _) {
+      body: ListenableBuilder(
+        listenable: _viewModel,
+        builder: (context, _) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTapDown: (details) => _handleTap(details, viewModel),
+            onTapDown: _handleTap,
             child: Column(
               children: [
                 SafeArea(
@@ -75,13 +84,13 @@ class _OnboardingPageContentState extends State<_OnboardingPageContent> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: List.generate(
-                        viewModel.totalPages,
+                        _viewModel.totalPages,
                         (index) => Expanded(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: _ProgressBar(
-                              isActive: index == viewModel.currentPage,
-                              isPassed: index < viewModel.currentPage,
+                              isActive: index == _viewModel.currentPage,
+                              isPassed: index < _viewModel.currentPage,
                             ),
                           ),
                         ),
@@ -89,7 +98,7 @@ class _OnboardingPageContentState extends State<_OnboardingPageContent> {
                     ),
                   ),
                 ),
-                Expanded(child: _buildPageContent(viewModel.currentPage)),
+                Expanded(child: _buildPageContent(_viewModel.currentPage)),
               ],
             ),
           );
@@ -100,9 +109,21 @@ class _OnboardingPageContentState extends State<_OnboardingPageContent> {
 
   Widget _buildPageContent(int page) {
     final pages = [
-      const _OnboardingContent(key: ValueKey(0), text: 'onBoardingPage 1'),
-      const _OnboardingContent(key: ValueKey(1), text: 'onBoardingPage 2'),
-      const _OnboardingContent(key: ValueKey(2), text: 'onBoardingPage 3'),
+      const _OnboardingContent(
+        key: ValueKey(0),
+        text: 'onBoardingPage 1',
+        icon: Icons.shopping_bag,
+      ),
+      const _OnboardingContent(
+        key: ValueKey(1),
+        text: 'onBoardingPage 2',
+        icon: Icons.local_shipping,
+      ),
+      const _OnboardingContent(
+        key: ValueKey(2),
+        text: 'onBoardingPage 3',
+        icon: Icons.check_circle,
+      ),
     ];
 
     return AnimatedSwitcher(
