@@ -1,16 +1,34 @@
-# fake_store
+# Fake Store
 
-A new Flutter project.
+Flutter-приложение для интернет-магазина с использованием Fake Store API.
 
-## Getting Started
+## Описание
 
-This project is a starting point for a Flutter application.
+Приложение реализует каталог товаров с пагинацией, онбординг и навигацию между экранами. Архитектура построена на принципах Clean Architecture. Подход layer-first, с разделением на слои data, domain, presentation.
 
-A few resources to get you started if this is your first Flutter project:
+## Технологии
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **State Management**: Provider + ChangeNotifier
+- **Dependency Injection**: GetIt
+- **Networking**: Dio + Retrofit
+- **Serialization**: json_serializable
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Структура проекта
+
+```
+lib/
+├── data/             # Data layer (repositories, data sources, models)
+├── domain/           # Domain layer (entities, use cases, repository interfaces)
+├── presentation/     # Presentation layer (pages, view models)
+├── di/               # Dependency injection
+└── infrastructure/   # API configuration
+```
+
+## Установка и запуск
+```bash
+git clone https://github.com/your-username/fake_store.git
+cd fake_store
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter run
+```
