@@ -48,15 +48,20 @@ class HomeFeedViewModel extends ChangeNotifier {
     final currentState = _state as HomeFeedLoaded;
     _state = currentState.copyWith(isLoadingMore: true);
     notifyListeners();
+
     /// Тут должна быть логика с пагинацией (skip/take). Но эндпоинты fake store api не поддерживают пагинацию.
     /// поэтому просто загружаем те же продукты заново и добавляем в список
-    final products = await getProductsUseCase.call();
-    _state = currentState.copyWith(
-      products: [...currentState.products, ...products],
-      isLoadingMore: false,
-      canLoadMore: products.length == _pageSize,
-      page: currentState.page + 1,
-    );
+    try {
+      final products = await getProductsUseCase.call();
+      _state = currentState.copyWith(
+        products: [...currentState.products, ...products],
+        isLoadingMore: false,
+        canLoadMore: products.length == _pageSize,
+        page: currentState.page + 1,
+      );
+    } catch (e) {
+      _state = currentState.copyWith(isLoadingMore: false);
+    }
     notifyListeners();
   }
 }
