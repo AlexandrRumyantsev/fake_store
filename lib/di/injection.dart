@@ -20,4 +20,7 @@ void configureDependencies() {
     ),
   );
   regLS(() => GetProductsUseCase(productRepository: sl<ProductRepository>()));
+  regLS(() => HomeFeedViewModel(
+    getProductsUseCase: sl<GetProductsUseCase>(),
+  ));
 }

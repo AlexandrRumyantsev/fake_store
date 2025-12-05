@@ -5,5 +5,6 @@ import '../data/repositories/products.dart';
 import '../domain/repositories/product.dart';
 import '../domain/use_cases/product/get_products.dart';
 import '../infrastructure/api.dart';
+import '../presentation/home_feed/view_model.dart';
 
 part 'injection.dart';

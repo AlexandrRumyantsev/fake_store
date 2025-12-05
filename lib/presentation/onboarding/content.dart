@@ -8,6 +8,15 @@ class _OnboardingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Column(children: [Icon(icon), Text(text)]));
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 120, color: Colors.blue),
+          const SizedBox(height: 32),
+          Text(text),
+        ],
+      ),
+    );
   }
 }

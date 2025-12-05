@@ -21,6 +21,13 @@ class _ProgressBarState extends State<_ProgressBar>
       vsync: this,
       duration: const Duration(milliseconds: 3000),
     );
+    if (widget.isActive) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _controller.forward(from: 0);
+        }
+      });
+    }
   }
 
   @override

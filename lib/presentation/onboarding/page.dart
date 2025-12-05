@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../di/init.dart';
 import '../home_feed/page.dart';
 import '../home_feed/view_model.dart';
 import 'view_model.dart';
@@ -45,7 +46,7 @@ class _OnboardingPageContentState extends State<_OnboardingPageContent> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => HomeFeedViewModel(),
+            create: (_) => sl<HomeFeedViewModel>(),
             child: const HomeFeedPage(),
           ),
         ),
