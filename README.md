@@ -8,6 +8,7 @@ Flutter-приложение для интернет-магазина с исп�
 
 ## Технологии
 
+- **Flutter**: 3.32.2 (stable)
 - **State Management**: Provider + ChangeNotifier
 - **Dependency Injection**: GetIt
 - **Networking**: Dio + Retrofit
