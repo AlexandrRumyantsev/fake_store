@@ -33,3 +33,7 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
+
+## Демо
+https://github.com/user-attachments/assets/26743ac2-4d92-4a52-bcc3-bf637220f02b
+
